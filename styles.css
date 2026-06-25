@@ -124,6 +124,27 @@ img, svg { display: block; max-width: 100%; }
   color: var(--ink-soft);
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-dropdown-toggle::after {
+  content: none !important;
+}
+
+.nav-dropdown-toggle .chevron {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle .chevron {
+  transform: rotate(-135deg) translateY(-2px);
 }
 
 .nav-dropdown-toggle:hover { color: var(--ink); }
@@ -139,7 +160,6 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .nav-dropdown-menu {
-  display: none;
   position: absolute;
   top: calc(100% + 14px);
   left: 0;
@@ -150,6 +170,11 @@ img, svg { display: block; max-width: 100%; }
   min-width: 180px;
   z-index: 100;
   padding: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: flex;
 }
 
 .nav-dropdown-menu li { list-style: none; }
@@ -165,7 +190,11 @@ img, svg { display: block; max-width: 100%; }
 .nav-dropdown-menu a:hover { background: var(--paper-deep); color: var(--ink); }
 .nav-dropdown-menu a.active { color: var(--ink); }
 
-.nav-dropdown:hover .nav-dropdown-menu { display: flex; }
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
 
 /* ============================================================
    Hero
