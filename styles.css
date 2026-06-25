@@ -775,6 +775,126 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   .linkedin-nudge { flex-direction: column; align-items: flex-start; }
 }
 
+/* Formula card */
+.formula-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.formula-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+
+.formula-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formula-line {
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.formula-terms {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 40px;
+}
+
+.formula-term {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-soft);
+  display: block;
+}
+
+.formula-plus {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  padding-left: 4px;
+}
+
+/* Weight cards */
+.weight-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 20px 0 28px;
+}
+
+.weight-card {
+  background: var(--paper-card);
+  padding: 18px;
+}
+
+.weight-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.weight-card-name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.weight-card-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.weight-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.weight-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.weight-val.highlight {
+  color: var(--rust);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .weight-cards { grid-template-columns: 1fr; }
+  .formula-terms { padding-left: 16px; }
+}
+
 /* Hamburger */
 .hamburger {
   display: none;

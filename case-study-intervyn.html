@@ -101,21 +101,74 @@
 
       <div class="cs-section" id="scoring">
         <h2>The formula, the weights, and where the line gets drawn</h2>
-        <div class="code-block"><span class="comment">// the formula itself — weights vary by workflow category</span><br>
-        HLI = (Emotional Intensity × w₁) + (Decision Impact × w₂)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;+ (Relationship Value × w₃) + (Revenue Risk × w₄)</div>
 
-        <div class="data-table-wrap"><table class="data-table">
-          <thead>
-            <tr><th>Category</th><th class="num">Emotional</th><th class="num">Decision</th><th class="num">Relationship</th><th class="num">Revenue</th></tr>
-          </thead>
-          <tbody>
-            <tr class="highlight"><td>Support</td><td class="num">0.40</td><td class="num">0.25</td><td class="num">0.20</td><td class="num">0.15</td></tr>
-            <tr><td>Sales</td><td class="num">0.25</td><td class="num" style="color:var(--rust); font-weight:600;">0.40</td><td class="num">0.20</td><td class="num">0.15</td></tr>
-            <tr><td>HR</td><td class="num">0.30</td><td class="num">0.25</td><td class="num" style="color:var(--rust); font-weight:600;">0.30</td><td class="num">0.15</td></tr>
-            <tr><td>Default</td><td class="num">0.35</td><td class="num">0.30</td><td class="num">0.20</td><td class="num">0.15</td></tr>
-          </tbody>
-        </table></div>
+        <div class="formula-card">
+          <div class="formula-label">The formula — weights vary by workflow category</div>
+          <div class="formula-body">
+            <div class="formula-line">HLI =</div>
+            <div class="formula-terms">
+              <span class="formula-term">(Emotional Intensity × w₁)</span>
+              <span class="formula-plus">+</span>
+              <span class="formula-term">(Decision Impact × w₂)</span>
+              <span class="formula-plus">+</span>
+              <span class="formula-term">(Relationship Value × w₃)</span>
+              <span class="formula-plus">+</span>
+              <span class="formula-term">(Revenue Risk × w₄)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="weight-cards">
+          <div class="weight-card weight-card--highlight">
+            <div class="weight-card-header">
+              <span class="weight-card-name">Support</span>
+              <span class="weight-card-note">emotion-first</span>
+            </div>
+            <div class="weight-rows">
+              <div class="weight-row"><span>Emotional intensity</span><span class="weight-val highlight">0.40</span></div>
+              <div class="weight-row"><span>Decision impact</span><span class="weight-val">0.25</span></div>
+              <div class="weight-row"><span>Relationship value</span><span class="weight-val">0.20</span></div>
+              <div class="weight-row"><span>Revenue risk</span><span class="weight-val">0.15</span></div>
+            </div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-card-header">
+              <span class="weight-card-name">Sales</span>
+              <span class="weight-card-note">decision-first</span>
+            </div>
+            <div class="weight-rows">
+              <div class="weight-row"><span>Emotional intensity</span><span class="weight-val">0.25</span></div>
+              <div class="weight-row"><span>Decision impact</span><span class="weight-val highlight">0.40</span></div>
+              <div class="weight-row"><span>Relationship value</span><span class="weight-val">0.20</span></div>
+              <div class="weight-row"><span>Revenue risk</span><span class="weight-val">0.15</span></div>
+            </div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-card-header">
+              <span class="weight-card-name">HR</span>
+              <span class="weight-card-note">relationship-first</span>
+            </div>
+            <div class="weight-rows">
+              <div class="weight-row"><span>Emotional intensity</span><span class="weight-val">0.30</span></div>
+              <div class="weight-row"><span>Decision impact</span><span class="weight-val">0.25</span></div>
+              <div class="weight-row"><span>Relationship value</span><span class="weight-val highlight">0.30</span></div>
+              <div class="weight-row"><span>Revenue risk</span><span class="weight-val">0.15</span></div>
+            </div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-card-header">
+              <span class="weight-card-name">Default</span>
+              <span class="weight-card-note">balanced</span>
+            </div>
+            <div class="weight-rows">
+              <div class="weight-row"><span>Emotional intensity</span><span class="weight-val">0.35</span></div>
+              <div class="weight-row"><span>Decision impact</span><span class="weight-val">0.30</span></div>
+              <div class="weight-row"><span>Relationship value</span><span class="weight-val">0.20</span></div>
+              <div class="weight-row"><span>Revenue risk</span><span class="weight-val">0.15</span></div>
+            </div>
+          </div>
+        </div>
+
         <p>Support weights emotion highest — a frustrated customer calling in is the highest churn moment. Sales weights decision impact — mistime an offer and you kill the conversion. HR weights relationship value — candidate experience shapes employer brand for years. Most "AI readiness" tools score every interaction with one fixed rubric; this one doesn't.</p>
 
         <h3 style="font-family:var(--serif); font-size:20px; margin:32px 0 4px;">The output: three verdicts</h3>
