@@ -719,23 +719,52 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   .axes-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
   .cs-body { grid-template-columns: 1fr; }
-  .cs-body aside { position: static; margin-bottom: 24px; }
-  .site-nav > ul { gap: 14px; font-size: 12px; }
-  .nav-dropdown-toggle { white-space: nowrap; }
-  .site-nav .brand { font-size: 17px; }
+  .cs-body aside { display: none; }
 
-  /* On touch devices, dropdown opens on tap via .open class toggled by JS */
-  .nav-dropdown-menu {
-    top: calc(100% + 6px);
+  /* Hide desktop nav, show hamburger */
+  .site-nav > ul { display: none; }
+  .site-nav .brand { font-size: 17px; }
+  .hamburger { display: flex; }
+
+  /* Mobile nav open state */
+  .site-nav > ul.nav-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 24px 24px;
+    gap: 18px;
+    font-size: 15px;
+    z-index: 199;
   }
-  .nav-dropdown.open .nav-dropdown-menu {
+
+  .nav-dropdown-menu {
+    position: static;
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: none;
+    transition: none;
+    border: none;
+    background: none;
+    padding: 8px 0 0 16px !important;
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+    margin-top: 0;
   }
-  .nav-dropdown.open .nav-dropdown-toggle .chevron {
-    transform: rotate(-135deg) translateY(-2px);
+
+  .nav-dropdown-menu a {
+    padding: 0;
+    font-size: 14px;
+    color: var(--ink-faint);
   }
+
+  .nav-dropdown-toggle .chevron { display: none; }
 }
 
 @media (max-width: 640px) {
@@ -745,6 +774,29 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   .meta-row { gap: 20px; }
   .linkedin-nudge { flex-direction: column; align-items: flex-start; }
 }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* LinkedIn nudge */
 .linkedin-nudge {
