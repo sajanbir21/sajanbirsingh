@@ -24,7 +24,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -54,12 +54,17 @@ img, svg { display: block; max-width: 100%; }
   margin: 0 auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
+  min-width: 0;
 }
 
 .rule {
   border: none;
   border-top: 1px solid var(--rule);
   margin: 0;
+}
+
+.rule.nav-offset {
+  margin-top: 57px;
 }
 
 .eyebrow {
@@ -74,8 +79,10 @@ img, svg { display: block; max-width: 100%; }
    Nav
    ============================================================ */
 .site-nav-wrap {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
   background: var(--paper);
   border-bottom: 1px solid var(--rule);
