@@ -34,7 +34,6 @@ body {
   font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -527,8 +526,9 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   padding: 12px 16px;
   margin: 10px 0 24px;
   white-space: normal;
-  word-break: break-word;
+  word-break: break-all;
   line-height: 1.8;
+  max-width: 100%;
 }
 
 .threshold-grid {
@@ -585,9 +585,6 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   font-family: var(--mono);
 }
 
-@media (max-width: 700px) {
-  .threshold-grid { grid-template-columns: 1fr; }
-}
 
 /* ============================================================
    Portrait
@@ -650,7 +647,7 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
 
 .cs-body aside {
   position: sticky;
-  top: 32px;
+  top: 80px;
   align-self: start;
   font-family: var(--mono);
   font-size: 13px;
@@ -662,8 +659,15 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
 
 .cs-section { margin-bottom: 56px; }
 
-.cs-section h2 {
+.cs-section h2,
+.cs-section h3,
+.cs-section h4 {
   font-family: var(--serif);
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.cs-section h2 {
   font-size: 26px;
   margin: 0 0 18px;
 }
@@ -672,13 +676,14 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
 
 .pull-quote {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: clamp(18px, 3vw, 24px);
   line-height: 1.4;
   color: var(--ink);
   border-left: 3px solid var(--rust);
   padding-left: 24px;
   margin: 32px 0;
-  max-width: 56ch;
+  max-width: min(56ch, 100%);
+  box-sizing: border-box;
 }
 
 .stat-row {
