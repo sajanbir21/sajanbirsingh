@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intervyn — Case Study — Sajanbir Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="site-nav">
+    <a href="index.html" class="brand">Sajanbir Singh<span class="dot">.</span></a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="case-study-intervyn.html" class="active">Intervyn</a></li>
+      <li><a href="case-study-ticket-classifier.html">Ticket Classifier</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <header class="cs-header">
+    <span class="eyebrow">Case Study — Framework + SaaS</span>
+    <h1>Intervyn: a risk-weighted business case for keeping a human in the loop</h1>
+    <p class="summary">A workflow simulator built on an original scoring system, the Human Leverage Index — not "can AI do this," but "what does a human protect here, versus what does getting it wrong cost."</p>
+  </header>
+
+  <hr class="rule">
+
+  <div class="meta-row">
+    <div class="meta-item"><span class="eyebrow">Role</span><div class="val">Founder, sole builder</div></div>
+    <div class="meta-item"><span class="eyebrow">Stack</span><div class="val">React, Vite, TypeScript, Supabase, Netlify Functions, Zustand</div></div>
+    <div class="meta-item"><span class="eyebrow">Status</span><div class="val"><span class="fill">In build — v1</span></div></div>
+    <div class="meta-item"><span class="eyebrow">Templates shipped</span><div class="val">18 workflow templates</div></div>
+  </div>
+
+  <hr class="rule">
+
+  <div class="cs-body">
+    <aside>
+      <ul>
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#architecture">The architecture</a></li>
+        <li><a href="#variables">What gets scored</a></li>
+        <li><a href="#scoring">The formula</a></li>
+        <li><a href="#evidence">The evidence</a></li>
+        <li><a href="#next">What's next</a></li>
+      </ul>
+    </aside>
+
+    <div>
+      <div class="cs-section" id="problem">
+        <h2>The problem</h2>
+        <p>Every company adopting AI right now is making the same mistake from two directions at once: automating customer-facing conversations that needed a human, and keeping humans on tasks that were never judgment calls to begin with. Both mistakes are expensive — one in trust, the other in time.</p>
+        <p>Most "should we automate this?" decisions get made on gut feel, or worse, on whatever the AI vendor is selling that quarter. There wasn't a structured way to actually score a workflow step and get a defensible answer.</p>
+      </div>
+
+      <div class="cs-section" id="architecture">
+        <h2>The architecture: two stages, one of them deliberately not AI</h2>
+        <p>The design decision that matters most here isn't the scoring formula — it's the split between the two stages that produce it.</p>
+        <p><strong>Stage 1 — Signal extraction (AI does this).</strong> GPT-4o reads a workflow step's description and extracts seven structured signals — things like emotional tone, intent, customer value tier, and journey stage. It doesn't make the call. It's translating unstructured text into a vocabulary the math engine can work with.</p>
+        <p><strong>Stage 2 — Scoring (pure deterministic math, no AI).</strong> A <code>normalizeSignals()</code> function takes those signals and runs them through a weighted formula. Same inputs, same output, every time.</p>
+        <div class="pull-quote">The AI can hallucinate or drift. The scoring cannot. The trust lives in the math layer, not the model.</div>
+        <p>That split is what makes the output auditable. A client can take any score and trace exactly where it came from, instead of trusting a second black box to grade the first one.</p>
+      </div>
+
+      <div class="cs-section" id="variables">
+        <h2>What gets scored: four variables</h2>
+
+        <h4 style="font-family:var(--serif); font-size:18px; margin:0 0 6px;">1. Emotional intensity — how activated is the person feeling this?</h4>
+        <div class="scale-strip">angry 1.0 → frustrated 0.85 → upset 0.80 → anxious 0.70 → disappointed 0.65 → confused 0.55 → neutral 0.20 → happy/excited 0.10</div>
+        <p>Forrester's research on emotional experience shows it's the strongest single predictor of loyalty outcomes — stronger than ease or resolution speed. A customer who feels heard during a bad moment stays longer than one who just gets the right answer from a bot. Automating a high-emotion step doesn't just fail to help — it actively makes things worse.</p>
+
+        <h4 style="font-family:var(--serif); font-size:18px; margin:24px 0 6px;">2. Decision impact — can this be undone if it's wrong?</h4>
+        <div class="scale-strip">legal_threat 1.0 → escalation 0.95 → churn_risk 0.90 → refund_request 0.85 → cancellation 0.80 → complaint 0.75 → billing_dispute 0.70 → general_query 0.30 → faq 0.10</div>
+        <p>If a step requires judgement — flagged during extraction — the score is floored at 0.75, because human context can't be replicated. This maps directly to Bezos's Type 1 / Type 2 decision framework: irreversible, one-way-door decisions are exactly the ones AI shouldn't own outright.</p>
+
+        <h4 style="font-family:var(--serif); font-size:18px; margin:24px 0 6px;">3. Relationship value — what have you invested, and what's at stake?</h4>
+        <div class="scale-strip">high-value customer 1.0 → medium 0.55 → unknown 0.35 → low 0.20 — weighted further by journey stage: retention 1.0 → post-purchase 0.80 → onboarding 0.65 → checkout 0.60 → pre-purchase 0.35</div>
+        <p>A customer in the retention phase has already bought, used, and formed an opinion — Bain's loyalty research shows a 5% drop in retention can mean a 25–95% drop in profit. The journey stage multiplies the stakes; the same complaint costs more at retention than at pre-purchase.</p>
+
+        <h4 style="font-family:var(--serif); font-size:18px; margin:24px 0 6px;">4. Revenue / reputation risk — what's the blast radius if AI gets it wrong?</h4>
+        <div class="scale-strip">legal 1.0 → payment 0.90 → churn 0.85 → reputation 0.85 → service_failure 0.80 → refund 0.75 → delivery 0.55 → technical 0.45 → administrative 0.20 → faq 0.05</div>
+        <p>This is the tail-risk variable. Most interactions go fine — but a bad AI response on a payment dispute or legal complaint isn't recoverable with a retry the way a wrong FAQ answer is.</p>
+      </div>
+
+      <div class="cs-section" id="scoring">
+        <h2>The formula, the weights, and where the line gets drawn</h2>
+        <div class="code-block"><span class="comment">// the formula itself — weights vary by workflow category</span><br>
+        HLI = (Emotional Intensity × w₁) + (Decision Impact × w₂)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+ (Relationship Value × w₃) + (Revenue Risk × w₄)</div>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Category</th><th class="num">Emotional</th><th class="num">Decision</th><th class="num">Relationship</th><th class="num">Revenue</th></tr>
+          </thead>
+          <tbody>
+            <tr class="highlight"><td>Support</td><td class="num">0.40</td><td class="num">0.25</td><td class="num">0.20</td><td class="num">0.15</td></tr>
+            <tr><td>Sales</td><td class="num">0.25</td><td class="num" style="color:var(--rust); font-weight:600;">0.40</td><td class="num">0.20</td><td class="num">0.15</td></tr>
+            <tr><td>HR</td><td class="num">0.30</td><td class="num">0.25</td><td class="num" style="color:var(--rust); font-weight:600;">0.30</td><td class="num">0.15</td></tr>
+            <tr><td>Default</td><td class="num">0.35</td><td class="num">0.30</td><td class="num">0.20</td><td class="num">0.15</td></tr>
+          </tbody>
+        </table>
+        <p>Support weights emotion highest — a frustrated customer calling in is the highest churn moment. Sales weights decision impact — mistime an offer and you kill the conversion. HR weights relationship value — candidate experience shapes employer brand for years. Most "AI readiness" tools score every interaction with one fixed rubric; this one doesn't.</p>
+
+        <h3 style="font-family:var(--serif); font-size:20px; margin:32px 0 4px;">The output: three verdicts</h3>
+        <div class="threshold-grid">
+          <div class="threshold-item protect">
+            <span class="range">HLI ≥ 0.70</span>
+            <p class="verdict">Protect</p>
+            <p>Human owns this step. The math says the risk or relationship cost is too high to hand over.</p>
+          </div>
+          <div class="threshold-item">
+            <span class="range">HLI 0.40 – 0.69</span>
+            <p class="verdict">Review</p>
+            <p>AI drafts, a human approves before it goes out. The middle ground most tools skip entirely.</p>
+          </div>
+          <div class="threshold-item automate">
+            <span class="range">HLI &lt; 0.40</span>
+            <p class="verdict">Automate</p>
+            <p>Safe to hand to AI fully — low stakes, low emotional charge, low blast radius.</p>
+          </div>
+        </div>
+
+        <h3 style="font-family:var(--serif); font-size:20px; margin:32px 0 4px;">Override rules — for when the math would be wrong</h3>
+        <p>Before the thresholds are even checked, a set of hard-coded rules bypass the score for cases where the risk is unambiguous. A step scoring 0.68 — just under the human threshold — involving a legal threat would otherwise land in "review." The override catches it and routes it straight to human, because some combinations carry known risk that deserves a rule, not a probability.</p>
+        <ul class="override-list">
+          <li>Legal issue or legal threat → always human, regardless of score</li>
+          <li>Angry customer + refund or cancellation intent → always human (the highest churn moment in support)</li>
+          <li>Churn risk during the retention stage → always human</li>
+          <li>FAQ + neutral tone → always AI</li>
+          <li>Scheduling or simple acknowledgement → always AI</li>
+        </ul>
+
+        <h3 style="font-family:var(--serif); font-size:20px; margin:32px 0 4px;">Confidence score</h3>
+        <div class="code-block">confidence = 0.5 + (distance from nearest threshold × 2)</div>
+        <p>An HLI of 0.85 sits far from both thresholds — high confidence in the verdict. An HLI of 0.42 sits right on the review/automate boundary — low confidence. This lets the system surface uncertainty honestly instead of presenting a borderline case with the same weight as an obvious one.</p>
+      </div>
+
+      <div class="cs-section" id="evidence">
+        <h2>The evidence</h2>
+        <p>The broader concept — that automation potential varies systematically by task type, not just by industry — was first stress-tested against McKinsey Global Institute's research on automation potential across occupations. The specific weight calibrations inside the scoring engine go further: each variable's scale is grounded in a named, citable source, documented directly in the scoring config rather than left as an assumption.</p>
+        <p>Emotional intensity draws on Forrester's research on emotion as a loyalty driver. Relationship value draws on Bain's loyalty-to-profit research. Decision impact borrows its logic from Jeff Bezos's Type 1 / Type 2 decision framework. The sales and HR category weights draw on Gong.io's conversion research and LinkedIn's employer-brand research, respectively. None of this is decorative — it's the audit trail for why the weights are what they are.</p>
+        <div class="stat-row">
+          <div class="stat-item"><span class="num fill">18</span><span class="label">workflow templates shipped</span></div>
+          <div class="stat-item"><span class="num fill">4</span><span class="label">scored variables, category-weighted</span></div>
+          <div class="stat-item"><span class="num fill">7</span><span class="label">structured signals extracted per step</span></div>
+        </div>
+      </div>
+
+      <div class="cs-section" id="next">
+        <h2>What's next</h2>
+        <p><span class="fill">[Add your actual roadmap — e.g. first pilot customers, public launch timeline, or what you're validating next]</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <footer class="site-footer" id="contact">
+    <div class="footer-grid">
+      <h2>Want to talk through your own workflows?</h2>
+      <div class="footer-links">
+        <a href="mailto:ssingh5@me.iitr.ac.in" style="text-decoration:underline;">ssingh5@me.iitr.ac.in</a>
+        <a href="https://wa.me/918283064822" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>
+        <a href="index.html">← Back home</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Sajanbir Singh. Built with Claude, shipped on Netlify.</p>
+  </footer>
+</div>
+
+</body>
+</html>

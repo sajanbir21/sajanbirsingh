@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Ticket Classifier — Case Study — Sajanbir Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="site-nav">
+    <a href="index.html" class="brand">Sajanbir Singh<span class="dot">.</span></a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="case-study-intervyn.html">Intervyn</a></li>
+      <li><a href="case-study-ticket-classifier.html" class="active">Ticket Classifier</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <header class="cs-header">
+    <span class="eyebrow">Case Study — Build + Deployment</span>
+    <h1>Automating support triage without automating away the judgment calls</h1>
+    <p class="summary">A real customer support ticket classifier, built to test the Human Leverage Score thinking outside of theory — where automation should fully take over, and where a human checkpoint had to stay.</p>
+  </header>
+
+  <hr class="rule">
+
+  <div class="meta-row">
+    <div class="meta-item"><span class="eyebrow">Role</span><div class="val">Builder</div></div>
+    <div class="meta-item"><span class="eyebrow">Stack</span><div class="val">Gmail ingestion, GPT-4o classification, confidence-gated routing</div></div>
+    <div class="meta-item"><span class="eyebrow">Domain</span><div class="val">Generic support inbox triage</div></div>
+    <div class="meta-item"><span class="eyebrow">Status</span><div class="val">Small-batch tested, scale projections below</div></div>
+  </div>
+
+  <hr class="rule">
+
+  <div class="cs-body">
+    <aside>
+      <ul>
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#approach">The approach</a></li>
+        <li><a href="#where-human">Where the human stayed</a></li>
+        <li><a href="#results">The results</a></li>
+        <li><a href="#lessons">What it taught me</a></li>
+      </ul>
+    </aside>
+
+    <div>
+      <div class="cs-section" id="problem">
+        <h2>The problem</h2>
+        <p>Manual ticket triage — an agent reading each incoming ticket and deciding its type, urgency, and department — typically takes <span class="fill">1–3 minutes per ticket</span>. At any meaningful support volume, that adds up to hours of work that's almost entirely classification, not conversation. It's also inconsistent: two agents triaging the same ticket won't always land on the same urgency or routing decision.</p>
+      </div>
+
+      <div class="cs-section" id="approach">
+        <h2>The approach</h2>
+        <p>Rather than automating ticket handling end-to-end, I ran the workflow through the same lens as Intervyn's HLS framework: score each part of the triage process — initial classification, urgency tagging, routing, drafting a first response — separately, instead of treating "support" as one block to automate or not.</p>
+        <p>Built an end-to-end pipeline: tickets are ingested from Gmail, classified by GPT-4o with a confidence score attached to each prediction, then auto-routed by type, urgency, and department when that confidence clears a set threshold. Anything below the threshold — or anything the model itself flags as ambiguous — gets queued for a human to review and correct, and those corrections feed back into the system as a continuous-improvement loop.</p>
+      </div>
+
+      <div class="cs-section" id="where-human">
+        <h2>Where the human stayed</h2>
+        <div class="pull-quote">Classification and routing scored low on emotional weight and reversibility — safe to automate. Anything touching a refund, an escalation, or an angry customer scored high on all four axes. That stayed human.</div>
+        <p>The handoff point is the confidence score itself, not a fixed category list. A ticket that's clearly a routine billing question routes itself. A ticket the model isn't confident about — ambiguous wording, an unusual request, anything that smells like an escalation — gets held for a human instead of forced through automatically. That's the confidence-gating doing the same job the HLS framework does on paper: routing by how much judgment a case actually needs, not by a static rule.</p>
+      </div>
+
+      <div class="cs-section" id="results">
+        <h2>The results</h2>
+        <div class="stat-row">
+          <div class="stat-item"><span class="num">~65%</span><span class="label">of sample tickets auto-routed above the confidence threshold (measured, small-batch test)</span></div>
+          <div class="stat-item"><span class="num">15–20 hrs</span><span class="label">estimated manual triage eliminated per month, at 500+ tickets/week (projected)</span></div>
+          <div class="stat-item"><span class="num">&lt;10 sec</span><span class="label">time-to-route per ticket, down from minutes (measured — LLM call latency)</span></div>
+        </div>
+        <p>In small-scale testing, roughly 65% of sample tickets were classified above the confidence threshold and auto-routed without manual review. At a typical support volume of 500+ tickets/week, a similar auto-classification rate could eliminate an estimated 15–20 hours of manual triage per month, while cutting time-to-route from minutes to seconds per ticket.</p>
+        <p style="font-size:13px; color:var(--ink-faint);">The 65% and the sub-10-second routing time are measured. The hours-saved figure is a back-of-envelope projection — built off typical manual triage time (1–3 min/ticket) scaled by volume — not a measurement from a live deployment at that scale.</p>
+      </div>
+
+      <div class="cs-section" id="lessons">
+        <h2>What it taught me</h2>
+        <p>The cleanest part of HLS in practice was the confidence threshold itself — it's almost a direct implementation of "reversibility and complexity" as a single number the system checks before acting. The harder part was resisting the urge to report a bigger "at scale" number than I could defend. It's tempting to round 65% up or quote an aggressive hours-saved figure, but the honest version — measured numbers labeled as measured, projections labeled as projections — holds up better under one follow-up question than an inflated one does.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <footer class="site-footer" id="contact">
+    <div class="footer-grid">
+      <h2>Have a support or ops workflow to look at?</h2>
+      <div class="footer-links">
+        <a href="mailto:ssingh5@me.iitr.ac.in" style="text-decoration:underline;">ssingh5@me.iitr.ac.in</a>
+        <a href="https://wa.me/918283064822" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>
+        <a href="index.html">← Back home</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Sajanbir Singh. Built with Claude, shipped on Netlify.</p>
+  </footer>
+</div>
+
+</body>
+</html>
