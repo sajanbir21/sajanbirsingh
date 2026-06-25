@@ -89,7 +89,7 @@ img, svg { display: block; max-width: 100%; }
 
 .site-nav .brand .dot { color: var(--rust); }
 
-.site-nav ul {
+.site-nav > ul {
   display: flex;
   gap: 32px;
   list-style: none;
@@ -667,6 +667,25 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
 @media (max-width: 560px) {
   .axes-grid { grid-template-columns: 1fr; }
   .stat-row { grid-template-columns: 1fr; }
+}
+
+/* LinkedIn nudge */
+.linkedin-nudge {
+  padding-top: clamp(32px, 4vw, 48px);
+  padding-bottom: clamp(32px, 4vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.linkedin-nudge p {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--ink);
+  margin: 0;
+  max-width: 48ch;
 }
 
 /* Focus visibility */
