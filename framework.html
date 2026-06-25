@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework — Sajanbir Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="site-nav-wrap">
+<div class="wrap">
+  <nav class="site-nav">
+    <a href="index.html" class="brand">Sajanbir Singh<span class="dot">.</span></a>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="framework.html" class="active">Framework</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+</div>
+
+<hr class="rule nav-offset">
+
+<div class="wrap">
+  <header class="cs-header">
+    <span class="eyebrow">The framework</span>
+    <h1>The Human Leverage Index (HLI)</h1>
+    <p class="summary">Most automation decisions are made on cost and speed. The Human Leverage Index adds a third dimension: what does getting this wrong cost you?</p>
+  </header>
+
+  <hr class="rule">
+
+  <div class="fw-body">
+    <div class="fw-intro">
+      <p>It scores every step in a workflow across four inputs — emotional intensity of the interaction, reversibility of the decision, relationship value of the customer, and revenue risk of a bad outcome. The result is a placement decision: protect this step, review it, or automate it safely.</p>
+      <p>Workflows carry different risk profiles depending on what they're doing. A customer support interaction and a sales conversation don't fail in the same way — the framework weights the inputs accordingly. And for everything else, a calibrated default applies.</p>
+      <p>The scoring is deterministic. Same inputs, same output. You can trace every decision back to its source.</p>
+    </div>
+
+    <div class="fw-inputs">
+      <h2>Four inputs</h2>
+      <div class="fw-input-grid">
+        <div class="fw-input-item">
+          <span class="num">01</span>
+          <h4>Emotional intensity</h4>
+          <p>How activated is the person in this moment — angry, frustrated, neutral? Automating a high-emotion step doesn't just fail to help. It actively makes things worse.</p>
+        </div>
+        <div class="fw-input-item">
+          <span class="num">02</span>
+          <h4>Reversibility</h4>
+          <p>If this goes wrong, can it be undone? Bezos's Type 1 / Type 2 distinction applied to workflow steps — irreversible decisions aren't ones AI should own outright.</p>
+        </div>
+        <div class="fw-input-item">
+          <span class="num">03</span>
+          <h4>Relationship value</h4>
+          <p>How much has this relationship cost to build, and what's at stake if it breaks here? A retention-stage complaint costs more than a pre-purchase one.</p>
+        </div>
+        <div class="fw-input-item">
+          <span class="num">04</span>
+          <h4>Revenue risk</h4>
+          <p>What's the blast radius if the AI gets this specific case wrong — and is it recoverable with a retry, or is the damage done?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-verdicts">
+      <h2>Three verdicts</h2>
+      <div class="threshold-grid">
+        <div class="threshold-item protect">
+          <span class="range">HLI ≥ 0.70</span>
+          <p class="verdict">Protect</p>
+          <p>Human owns this step. The risk or relationship cost is too high to hand over.</p>
+        </div>
+        <div class="threshold-item">
+          <span class="range">HLI 0.40 – 0.69</span>
+          <p class="verdict">Review</p>
+          <p>AI drafts, a human approves before it goes out. The middle ground most tools skip.</p>
+        </div>
+        <div class="threshold-item automate">
+          <span class="range">HLI &lt; 0.40</span>
+          <p class="verdict">Automate</p>
+          <p>Safe to hand to AI fully — low stakes, low emotional charge, low blast radius.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-projects">
+      <h2>Project built on HLI</h2>
+      <a class="case-card fw-project-card" href="case-study-ticket-classifier.html">
+        <span class="tag">Build + Deployment</span>
+        <h3>Support Ticket Classifier</h3>
+        <p>A Gmail-to-GPT-4o classification pipeline with confidence-gated routing — auto-routing roughly 65% of tickets in testing, and deliberately holding the rest for a human when the model itself isn't confident.</p>
+        <span class="arrow">Read the case study →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <footer class="site-footer" id="contact">
+    <div class="footer-grid">
+      <h2>Want to apply this to your workflows?</h2>
+      <div class="footer-links">
+        <a href="mailto:ssingh5@me.iitr.ac.in" style="text-decoration:underline;">ssingh5@me.iitr.ac.in</a>
+        <a href="https://wa.me/918283064822" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>
+        <a href="https://www.linkedin.com/in/sajanbir-singh-166b40233/" target="_blank" rel="noopener" style="text-decoration:underline;">LinkedIn</a>
+        <a href="index.html">← Back home</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Sajanbir Singh. Built with Claude, shipped on Netlify.</p>
+  </footer>
+</div>
+
+<script>
+  var hamburger = document.querySelector('.hamburger');
+  var navUl = document.querySelector('.site-nav > ul');
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    hamburger.classList.toggle('open');
+    navUl.classList.toggle('nav-open');
+  });
+  document.addEventListener('click', function() {
+    hamburger.classList.remove('open');
+    navUl.classList.remove('nav-open');
+  });
+</script>
+</body>
+</html>
