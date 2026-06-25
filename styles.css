@@ -781,9 +781,10 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   background: none;
   border: none;
+  margin-left: auto;
 }
 
 .hamburger span {
