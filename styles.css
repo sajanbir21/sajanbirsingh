@@ -692,7 +692,9 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   .about-grid { grid-template-columns: 1fr; }
   .cs-body { grid-template-columns: 1fr; }
   .cs-body aside { position: static; margin-bottom: 24px; }
-  .site-nav > ul { gap: 18px; font-size: 13px; }
+  .site-nav > ul { gap: 14px; font-size: 12px; }
+  .nav-dropdown-toggle { white-space: nowrap; }
+  .site-nav .brand { font-size: 17px; }
 
   /* On touch devices, dropdown opens on tap via .open class toggled by JS */
   .nav-dropdown-menu {
