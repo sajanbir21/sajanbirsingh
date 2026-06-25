@@ -135,10 +135,10 @@ img, svg { display: block; max-width: 100%; }
 
 .nav-dropdown-toggle .chevron {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
   transform: rotate(45deg) translateY(-2px);
   transition: transform 0.2s ease;
 }
