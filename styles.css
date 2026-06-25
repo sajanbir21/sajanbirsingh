@@ -692,7 +692,20 @@ section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 
   .about-grid { grid-template-columns: 1fr; }
   .cs-body { grid-template-columns: 1fr; }
   .cs-body aside { position: static; margin-bottom: 24px; }
-  .site-nav ul { gap: 18px; font-size: 13px; }
+  .site-nav > ul { gap: 18px; font-size: 13px; }
+
+  /* On touch devices, dropdown opens on tap via .open class toggled by JS */
+  .nav-dropdown-menu {
+    top: calc(100% + 6px);
+  }
+  .nav-dropdown.open .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .nav-dropdown.open .nav-dropdown-toggle .chevron {
+    transform: rotate(-135deg) translateY(-2px);
+  }
 }
 
 @media (max-width: 560px) {

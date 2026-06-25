@@ -177,5 +177,16 @@
   </footer>
 </div>
 
+<script>
+  document.querySelectorAll('.nav-dropdown').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      if (window.matchMedia('(hover: none)').matches) {
+        e.stopPropagation();
+        el.classList.toggle('open');
+      }
+    });
+    document.addEventListener('click', function() { el.classList.remove('open'); });
+  });
+</script>
 </body>
 </html>

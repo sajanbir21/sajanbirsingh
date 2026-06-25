@@ -105,6 +105,7 @@
       <div class="footer-links">
         <a href="mailto:ssingh5@me.iitr.ac.in" style="text-decoration:underline;">ssingh5@me.iitr.ac.in</a>
         <a href="https://wa.me/918283064822" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>
+        <a href="https://www.linkedin.com/in/sajanbir-singh-166b40233/" target="_blank" rel="noopener" style="text-decoration:underline;">LinkedIn</a>
         <a href="index.html">← Back home</a>
       </div>
     </div>
@@ -112,5 +113,16 @@
   </footer>
 </div>
 
+<script>
+  document.querySelectorAll('.nav-dropdown').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      if (window.matchMedia('(hover: none)').matches) {
+        e.stopPropagation();
+        el.classList.toggle('open');
+      }
+    });
+    document.addEventListener('click', function() { el.classList.remove('open'); });
+  });
+</script>
 </body>
 </html>
